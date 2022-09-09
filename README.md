@@ -10,7 +10,8 @@ Doctor Registration (Register, View, Delete)
 2. Department
 3. Consultation Fees
 
-Patient Registration (Register, View, Delete)
+
+xPatient Registration (Register, View, Delete)
 --------------------------------------------
 Patient Name
 Department

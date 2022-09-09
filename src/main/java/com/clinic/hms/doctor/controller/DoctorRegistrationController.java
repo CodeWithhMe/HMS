@@ -1,9 +1,10 @@
 package com.clinic.hms.doctor.controller;
 
+import com.clinic.hms.doctor.dto.DoctorDTO;
 import com.clinic.hms.doctor.entity.Doctor;
+import com.clinic.hms.doctor.mapper.MapStructMapper;
 import com.clinic.hms.doctor.repository.DoctorRepository;
 import com.clinic.hms.doctor.service.DoctorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,13 @@ import java.util.List;
 public class DoctorRegistrationController implements ErrorController {
 
     private final DoctorService doctorService;
-    @Autowired
-    DoctorRepository doctorRepository;
+    private DoctorRepository doctorRepository;
+    private MapStructMapper mapstructMapper;
 
-    public DoctorRegistrationController(DoctorService doctorService) {
+    public DoctorRegistrationController(DoctorService doctorService, DoctorRepository doctorRepository, MapStructMapper mapstructMapper) {
         this.doctorService = doctorService;
+        this.doctorRepository = doctorRepository;
+        this.mapstructMapper = mapstructMapper;
     }
 
     @GetMapping("/doctors")
@@ -45,8 +48,9 @@ public class DoctorRegistrationController implements ErrorController {
     }
 
     @PostMapping("/doctors")
-    public ResponseEntity<Doctor> addNewDoctor(@RequestBody Doctor doctor) {
-        Doctor _doctor = doctorRepository.save(doctorService.saveOrUpdate(doctor));
+    public ResponseEntity<Doctor> addNewDoctor(@RequestBody DoctorDTO doctorDTO) {
+        // use mapstruct to map DTO to entity
+        Doctor _doctor = doctorRepository.save(mapstructMapper.doctorDTOToDoctor(doctorDTO));
         return new ResponseEntity<>(_doctor, HttpStatus.CREATED);
     }
 }
