@@ -3,6 +3,10 @@ package com.clinic.hms.doctor.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+/**
+ * @author akhilkanakendran
+ * DTO Class for Doctor Entity
+ */
 @Data
 public class DoctorDTO {
     private String name;

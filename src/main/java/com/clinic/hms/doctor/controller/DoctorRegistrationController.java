@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author akhilkanakendran
+ * Controller Class exposing the API's
+ */
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
@@ -23,8 +27,16 @@ public class DoctorRegistrationController implements ErrorController {
     private final DoctorRepository doctorRepository;
     private final MapStructMapper mapstructMapper;
 
+    /**
+     * Get operation to list all doctors
+     * matching the name passed as argument
+     *
+     * @param name Name of the doctor
+     * @return ResponseEntity<List < Doctor>>
+     * List of Doctor entities
+     */
     @GetMapping("/doctors")
-    public ResponseEntity<List<Doctor>> getAllTutorials(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<Doctor>> getAllDoctors(@RequestParam(required = false) String name) {
         try {
             List<Doctor> doctors = new ArrayList<>();
             if (name == null)
