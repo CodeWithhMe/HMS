@@ -4,17 +4,14 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.clinic.hms.doctor.controller","com.clinic.hms.doctor.entity", "com.clinic.hms.doctor.repository", "com.clinic.hms.doctor"})
 @OpenAPIDefinition(info = @Info(
-		title = "Hospital Management System APIs",
-		version = "1.0",
-		description = "Hospital Management System"))
+        title = "Hospital Management System APIs",
+        version = "1.0",
+        description = "Hospital Management System"))
 public class HospitalManagementSystemApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(HospitalManagementSystemApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HospitalManagementSystemApplication.class, args);
+    }
 }

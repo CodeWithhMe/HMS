@@ -5,6 +5,7 @@ import com.clinic.hms.doctor.entity.Doctor;
 import com.clinic.hms.doctor.mapper.MapStructMapper;
 import com.clinic.hms.doctor.repository.DoctorRepository;
 import com.clinic.hms.doctor.service.DoctorService;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,27 +14,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
 public class DoctorRegistrationController implements ErrorController {
 
     private final DoctorService doctorService;
-    private DoctorRepository doctorRepository;
-    private MapStructMapper mapstructMapper;
-
-    public DoctorRegistrationController(DoctorService doctorService, DoctorRepository doctorRepository, MapStructMapper mapstructMapper) {
-        this.doctorService = doctorService;
-        this.doctorRepository = doctorRepository;
-        this.mapstructMapper = mapstructMapper;
-    }
+    private final DoctorRepository doctorRepository;
+    private final MapStructMapper mapstructMapper;
 
     @GetMapping("/doctors")
     public ResponseEntity<List<Doctor>> getAllTutorials(@RequestParam(required = false) String name) {
         try {
             List<Doctor> doctors = new ArrayList<>();
-            /*Optional.ofNullable(name)
-                    .map(doctorList -> doctors.addAll(doctorRepository.findByNameContaining(name)))
-                    .orElse(doctors.addAll(doctorRepository.findAll()));*/
             if (name == null)
                 doctors.addAll(doctorRepository.findAll());
             else
@@ -48,9 +41,9 @@ public class DoctorRegistrationController implements ErrorController {
     }
 
     @PostMapping("/doctors")
-    public ResponseEntity<Doctor> addNewDoctor(@RequestBody DoctorDTO doctorDTO) {
+    public ResponseEntity<DoctorDTO> addNewDoctor(@RequestBody DoctorDTO doctorDTO) {
         // use mapstruct to map DTO to entity
-        Doctor _doctor = doctorRepository.save(mapstructMapper.doctorDTOToDoctor(doctorDTO));
-        return new ResponseEntity<>(_doctor, HttpStatus.CREATED);
+        doctorService.save(mapstructMapper.toDoctor(doctorDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(doctorDTO);
     }
 }

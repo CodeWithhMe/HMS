@@ -4,9 +4,18 @@ import com.clinic.hms.doctor.dto.DoctorDTO;
 import com.clinic.hms.doctor.entity.Doctor;
 import org.mapstruct.Mapper;
 
-@Mapper(
-        componentModel = "spring"
-)
+/**
+ * @author akhilkanakendran
+ * MapStructMapper Interface
+ */
+@Mapper(componentModel = "spring")
 public interface MapStructMapper {
-    Doctor doctorDTOToDoctor(DoctorDTO doctorDTO);
+
+    /**
+     * Map Doctor DTO to Doctor Entity
+     *
+     * @param doctorDTO DTO class of Doctor
+     * @return Doctor entity class
+     */
+    Doctor toDoctor(DoctorDTO doctorDTO);
 }
