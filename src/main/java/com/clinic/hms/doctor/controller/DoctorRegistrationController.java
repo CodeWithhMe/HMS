@@ -34,7 +34,7 @@ public class DoctorRegistrationController implements ErrorController {
             if (name == null)
                 doctors.addAll(doctorRepository.findAll());
             else
-                doctors.addAll(doctorRepository.findByNameContaining(name));
+                doctors.addAll(doctorRepository.findDoctorsByName(name));
             if (doctors.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
