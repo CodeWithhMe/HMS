@@ -32,6 +32,7 @@ public class DoctorRegistrationController implements ErrorController {
      */
     @GetMapping("/doctors")
     public ResponseEntity<List<DoctorDTO>> findAllDoctors() {
+        // use mapstruct to map List of doctor entities to Doctor DTO
         return ResponseEntity.ok(doctorMapper.toDoctorDTOList(doctorService.findAll()));
     }
 

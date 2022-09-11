@@ -1,5 +1,6 @@
 package com.clinic.hms.doctor.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,6 +9,7 @@ import lombok.Getter;
  * DTO Class for Doctor Entity
  */
 @Getter
+@AllArgsConstructor
 @Builder
 public class DoctorDTO {
     private String name;

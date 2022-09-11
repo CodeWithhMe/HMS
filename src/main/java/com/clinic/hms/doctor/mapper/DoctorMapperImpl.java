@@ -4,8 +4,9 @@ import com.clinic.hms.doctor.dto.DoctorDTO;
 import com.clinic.hms.doctor.entity.Doctor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author akhilkanakendran
@@ -23,20 +24,16 @@ public class DoctorMapperImpl implements DoctorMapper {
      */
     @Override
     public Doctor toDoctorEntity(DoctorDTO doctorDTO) {
-
         if (doctorDTO == null) {
             return null;
         }
-
-        Doctor doctor = new Doctor();
-
-        doctor.setName(doctorDTO.getName());
-        doctor.setDepartment(doctorDTO.getDepartment());
-        doctor.setDesignation(doctorDTO.getDesignation());
-        doctor.setQualification(doctorDTO.getQualification());
-        doctor.setConsultationFee(doctorDTO.getConsultationFee());
-
-        return doctor;
+        return Doctor.builder()
+                .name(doctorDTO.getName())
+                .department(doctorDTO.getDepartment())
+                .designation(doctorDTO.getDesignation())
+                .qualification(doctorDTO.getQualification())
+                .consultationFee(doctorDTO.getConsultationFee())
+                .build();
     }
 
     /**
@@ -44,19 +41,16 @@ public class DoctorMapperImpl implements DoctorMapper {
      * List of Doctor DTOs
      *
      * @param doctorList List of doctor entities
-     * @return Returns a List of DoctorDTOs
+     *                   and this could be null
+     * @return Checks if list is empty, otherwise
+     * Returns a List of DoctorDTOs
      */
     @Override
     public List<DoctorDTO> toDoctorDTOList(List<Doctor> doctorList) {
-        if (doctorList == null) {
-            return null;
-        }
-
-        List<DoctorDTO> doctorDTOList = new ArrayList<>(doctorList.size());
-        for (Doctor doctor : doctorList) {
-            doctorDTOList.add(toDoctorEntity(doctor));
-        }
-        return doctorDTOList;
+        return Stream.ofNullable(doctorList)
+                .flatMap(Collection::stream)
+                .map(this::toDoctorDTO)
+                .toList();
     }
 
     /**
@@ -66,7 +60,7 @@ public class DoctorMapperImpl implements DoctorMapper {
      * @return Returns a Doctor DTO
      */
     @Override
-    public DoctorDTO toDoctorEntity(Doctor doctor) {
+    public DoctorDTO toDoctorDTO(Doctor doctor) {
         return DoctorDTO.builder()
                 .name(doctor.getName())
                 .qualification(doctor.getQualification())

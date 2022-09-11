@@ -31,8 +31,9 @@ public interface DoctorMapper {
 
     /**
      * Map Doctor Entity to Doctor DTO
+     *
      * @param doctor Doctor Entity
      * @return Returns a Doctor DTO
      */
-    DoctorDTO toDoctorEntity(Doctor doctor);
+    DoctorDTO toDoctorDTO(Doctor doctor);
 }

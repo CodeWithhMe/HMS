@@ -1,8 +1,9 @@
 package com.clinic.hms.doctor.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -10,10 +11,11 @@ import javax.persistence.*;
  * @author akhilkanakendran
  * Entity class for Doctor
  */
-@NoArgsConstructor
 @Getter
-@Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "doctors")
 public class Doctor {
     @Id
