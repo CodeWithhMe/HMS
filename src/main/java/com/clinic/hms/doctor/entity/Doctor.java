@@ -6,6 +6,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * @author akhilkanakendran
+ * Entity class for Doctor
+ */
 @NoArgsConstructor
 @Getter
 @Setter
@@ -26,6 +30,15 @@ public class Doctor {
     @Column(name = "consultationFee")
     private String consultationFee;
 
+    /**
+     * Parameterized Constructor with changing fields
+     *
+     * @param name            Name of the doctor
+     * @param qualification   Qualification of the doctor
+     * @param designation     Designation of the doctor
+     * @param department      Department of the doctor
+     * @param consultationFee Consulation Fee of the doctor
+     */
     public Doctor(String name, String qualification, String designation, String department, String consultationFee) {
         this.name = name;
         this.qualification = qualification;

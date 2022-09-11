@@ -1,9 +1,7 @@
 package com.clinic.hms.doctor.controller;
 
 import com.clinic.hms.doctor.dto.DoctorDTO;
-import com.clinic.hms.doctor.entity.Doctor;
-import com.clinic.hms.doctor.mapper.MapStructMapper;
-import com.clinic.hms.doctor.repository.DoctorRepository;
+import com.clinic.hms.doctor.mapper.DoctorMapper;
 import com.clinic.hms.doctor.service.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -11,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,38 +21,30 @@ import java.util.List;
 public class DoctorRegistrationController implements ErrorController {
 
     private final DoctorService doctorService;
-    private final DoctorRepository doctorRepository;
-    private final MapStructMapper mapstructMapper;
+    private final DoctorMapper doctorMapper;
 
     /**
      * Get operation to list all doctors
      * matching the name passed as argument
      *
-     * @param name Name of the doctor
      * @return ResponseEntity<List < Doctor>>
      * List of Doctor entities
      */
     @GetMapping("/doctors")
-    public ResponseEntity<List<Doctor>> getAllDoctors(@RequestParam(required = false) String name) {
-        try {
-            List<Doctor> doctors = new ArrayList<>();
-            if (name == null)
-                doctors.addAll(doctorRepository.findAll());
-            else
-                doctors.addAll(doctorRepository.findDoctorsByName(name));
-            if (doctors.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(doctors, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<List<DoctorDTO>> findAllDoctors() {
+        return ResponseEntity.ok(doctorMapper.toDoctorDTOList(doctorService.findAll()));
     }
 
+    /**
+     * Add new doctor to the table
+     *
+     * @param doctorDTO Doctor Details from the request
+     * @return Status of the request along with the DoctorDTO response
+     */
     @PostMapping("/doctors")
     public ResponseEntity<DoctorDTO> addNewDoctor(@RequestBody DoctorDTO doctorDTO) {
         // use mapstruct to map DTO to entity
-        doctorService.save(mapstructMapper.toDoctor(doctorDTO));
+        doctorService.save(doctorMapper.toDoctorEntity(doctorDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(doctorDTO);
     }
 }

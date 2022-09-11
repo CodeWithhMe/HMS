@@ -1,13 +1,14 @@
 package com.clinic.hms.doctor.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * @author akhilkanakendran
  * DTO Class for Doctor Entity
  */
-@Data
+@Getter
+@Builder
 public class DoctorDTO {
     private String name;
     private String qualification;

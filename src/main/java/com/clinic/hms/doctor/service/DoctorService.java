@@ -5,6 +5,8 @@ import com.clinic.hms.doctor.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author akhilkanakendran
  * Implementation class for the rest operations
@@ -21,9 +23,18 @@ public class DoctorService {
      * The new doctor is persisted into the database
      *
      * @param doctor New doctor Entity
-     * @return Doctor entity
      */
-    public Doctor save(Doctor doctor) {
-        return doctorRepository.save(doctor);
+    public void save(Doctor doctor) {
+        doctorRepository.save(doctor);
     }
+
+    /**
+     * Find list of all doctors
+     *
+     * @return List of Doctors
+     */
+    public List<Doctor> findAll() {
+        return doctorRepository.findAll();
+    }
+
 }
