@@ -24,9 +24,8 @@ public class DoctorMapperImpl implements DoctorMapper {
      */
     @Override
     public Doctor toDoctorEntity(DoctorDTO doctorDTO) {
-        if (doctorDTO == null) {
-            return null;
-        }
+        if (isNotValidDoctorDTO(doctorDTO))
+            throw new NullPointerException("Doctor DTO objects are null");
         return Doctor.builder()
                 .name(doctorDTO.getName())
                 .dateOfBirth(doctorDTO.getDateOfBirth())
@@ -70,5 +69,11 @@ public class DoctorMapperImpl implements DoctorMapper {
                 .department(doctor.getDepartment())
                 .consultationFee(doctor.getConsultationFee())
                 .build();
+    }
+
+    public boolean isNotValidDoctorDTO(DoctorDTO doctorDTO) {
+        return (doctorDTO == null || doctorDTO.getName() == null || doctorDTO.getDesignation() == null ||
+                doctorDTO.getDepartment() == null || doctorDTO.getQualification() == null ||
+                doctorDTO.getConsultationFee() == null);
     }
 }
