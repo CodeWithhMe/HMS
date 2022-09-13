@@ -4,7 +4,6 @@ import com.clinic.hms.doctor.dto.DoctorDTO;
 import com.clinic.hms.doctor.mapper.DoctorMapper;
 import com.clinic.hms.doctor.service.DoctorService;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
-public class DoctorRegistrationController implements ErrorController {
+public class DoctorRegistrationController {
 
     private final DoctorService doctorService;
     private final DoctorMapper doctorMapper;
@@ -33,7 +32,7 @@ public class DoctorRegistrationController implements ErrorController {
     @GetMapping("/doctors")
     public ResponseEntity<List<DoctorDTO>> findAllDoctors() {
         // use mapstruct to map List of doctor entities to Doctor DTO
-        return ResponseEntity.ok(doctorMapper.toDoctorDTOList(doctorService.findAll()));
+        return ResponseEntity.ok(doctorMapper.toDoctorDTOList(doctorService.findAllDoctors()));
     }
 
     /**
@@ -45,7 +44,7 @@ public class DoctorRegistrationController implements ErrorController {
     @PostMapping("/doctors")
     public ResponseEntity<DoctorDTO> addNewDoctor(@RequestBody DoctorDTO doctorDTO) {
         // use mapstruct to map DTO to entity
-        doctorService.save(doctorMapper.toDoctorEntity(doctorDTO));
+        doctorService.addDoctor(doctorMapper.toDoctorEntity(doctorDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(doctorDTO);
     }
 }

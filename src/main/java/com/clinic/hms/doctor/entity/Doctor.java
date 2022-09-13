@@ -20,9 +20,12 @@ import javax.persistence.*;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
     @Column(name = "name")
     private String name;
+    @Column(name = "dateOfBirth")
+    private String dateOfBirth;
+
     @Column(name = "qualification")
     private String qualification;
     @Column(name = "designation")
@@ -41,8 +44,9 @@ public class Doctor {
      * @param department      Department of the doctor
      * @param consultationFee Consulation Fee of the doctor
      */
-    public Doctor(String name, String qualification, String designation, String department, String consultationFee) {
+    public Doctor(String name, String dateOfBirth, String qualification, String designation, String department, String consultationFee) {
         this.name = name;
+        this.dateOfBirth = dateOfBirth;
         this.qualification = qualification;
         this.designation = designation;
         this.department = department;

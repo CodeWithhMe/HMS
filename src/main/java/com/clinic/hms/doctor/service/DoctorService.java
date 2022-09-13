@@ -2,7 +2,8 @@ package com.clinic.hms.doctor.service;
 
 import com.clinic.hms.doctor.entity.Doctor;
 import com.clinic.hms.doctor.repository.DoctorRepository;
-import lombok.RequiredArgsConstructor;
+import com.clinic.hms.exception.HMSException;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * Implementation class for the rest operations
  * on Doctor module
  */
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class DoctorService {
 
@@ -24,7 +25,18 @@ public class DoctorService {
      *
      * @param doctor New doctor Entity
      */
-    public void save(Doctor doctor) {
+    public void addDoctor(Doctor doctor) {
+        Boolean doctorExists =
+                doctorRepository.selectDoctorNameAndDOBExists(
+                        doctor.getName(),
+                        doctor.getDateOfBirth());
+        if (doctorExists) {
+            throw new HMSException("Doctor "
+                    + doctor.getName()
+                    + " with "
+                    + doctor.getDateOfBirth()
+                    + " taken");
+        }
         doctorRepository.save(doctor);
     }
 
@@ -33,8 +45,7 @@ public class DoctorService {
      *
      * @return List of Doctors
      */
-    public List<Doctor> findAll() {
+    public List<Doctor> findAllDoctors() {
         return doctorRepository.findAll();
     }
-
 }

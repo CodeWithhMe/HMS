@@ -25,13 +25,13 @@ class DoctorRepositoryTest {
     void canFindDoctorsByName() {
         //given
         var doctorName = "Akhil";
-        Doctor doctor1 = new Doctor("Akhil", "MBBS", "Cardiologist", "Cardiology", "500");
+        Doctor doctor1 = new Doctor("Akhil", "18-06-1990", "MBBS", "Cardiologist", "Cardiology", "500");
         doctorRepository.save(doctor1);
 
-        Doctor doctor2 = new Doctor("Akhil", "MD", "Dermatologist", "Dermatology", "300");
+        Doctor doctor2 = new Doctor("Akhil", "20-10-1990", "MD", "Dermatologist", "Dermatology", "300");
         doctorRepository.save(doctor2);
 
-        Doctor doctor3 = new Doctor("Kinara", "BPT", "Physiotherapist", "Physiotherapy", "500");
+        Doctor doctor3 = new Doctor("Kinara", "25-09-1993", "BPT", "Physiotherapist", "Physiotherapy", "500");
         doctorRepository.save(doctor3);
 
         //when

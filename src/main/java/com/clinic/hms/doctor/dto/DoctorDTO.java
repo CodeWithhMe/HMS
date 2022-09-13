@@ -13,6 +13,7 @@ import lombok.Getter;
 @Builder
 public class DoctorDTO {
     private String name;
+    private String dateOfBirth;
     private String qualification;
     private String designation;
     private String department;

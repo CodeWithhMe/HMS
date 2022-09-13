@@ -29,6 +29,7 @@ public class DoctorMapperImpl implements DoctorMapper {
         }
         return Doctor.builder()
                 .name(doctorDTO.getName())
+                .dateOfBirth(doctorDTO.getDateOfBirth())
                 .department(doctorDTO.getDepartment())
                 .designation(doctorDTO.getDesignation())
                 .qualification(doctorDTO.getQualification())
@@ -63,6 +64,7 @@ public class DoctorMapperImpl implements DoctorMapper {
     public DoctorDTO toDoctorDTO(Doctor doctor) {
         return DoctorDTO.builder()
                 .name(doctor.getName())
+                .dateOfBirth(doctor.getDateOfBirth())
                 .qualification(doctor.getQualification())
                 .designation(doctor.getDesignation())
                 .department(doctor.getDepartment())
