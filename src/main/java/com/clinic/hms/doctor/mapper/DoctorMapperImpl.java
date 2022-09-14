@@ -40,14 +40,14 @@ public class DoctorMapperImpl implements DoctorMapper {
      * Maps a list of Doctor Entities to
      * List of Doctor DTOs
      *
-     * @param doctorList List of doctor entities
-     *                   and this could be null
+     * @param doctorEntityList List of doctor entities
+     *                         and this could be null
      * @return Checks if list is empty, otherwise
      * Returns a List of DoctorDTOs
      */
     @Override
-    public List<DoctorDTO> toDoctorDTOList(List<Doctor> doctorList) {
-        return Stream.ofNullable(doctorList)
+    public List<DoctorDTO> toDoctorDTOList(List<Doctor> doctorEntityList) {
+        return Stream.ofNullable(doctorEntityList)
                 .flatMap(Collection::stream)
                 .map(this::toDoctorDTO)
                 .toList();
